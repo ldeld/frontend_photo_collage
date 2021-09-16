@@ -40,9 +40,17 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/proxy'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  // Dev server configuration: https://nuxtjs.org/docs/2.x/features/configuration#edit-host-and-port
+  server: {
+    port: 8000 // default: 3000
+  },
+  proxy: {
+    '/api/': { target: 'http://localhost:3000', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   }
 }
