@@ -58,7 +58,7 @@ export default {
       // todo: change url to env var
       const raw = await fetch('api/collages', { method: 'POST', body: data })
       const response = await raw.json();
-      console.log(response);
+      this.$emit("collage-submitted", response.id)
     },
   },
 }

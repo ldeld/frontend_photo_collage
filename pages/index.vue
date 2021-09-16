@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <OptionsForm :images="images"/>
-    <ImagesHolder :images="images" @new-image-added="addImage"/>
+    <OptionsForm :images="images" @collage-submitted="updateStatusToPending"/>
+    <ImagesHolder v-if="status === 'creating'" :images="images" @new-image-added="addImage"/>
+    <Loader v-else-if="status === 'pending'" :collage-id="collageId" @collage-finished="updateStatusToDone"/>
+    <CollageContainer v-else-if="status === 'done'" :collage-url="collageUrl"/>
   </div>
 </template>
 
@@ -9,12 +11,24 @@
   export default {
     data() {
       return {
-        images: []
+        images: [],
+        status: 'creating',
+        collageId: null,
+        collageUrl: null
       }
     },
     methods: {
       addImage(image) {
-        this.images.push(image)
+        this.images.push(image);
+      },
+      updateStatusToPending(collageId) {
+        this.collageId = collageId;
+        this.status = 'pending';
+      },
+      updateStatusToDone(collageUrl) {
+        console.log("updating to done", collageUrl)
+        this.collageUrl = collageUrl;
+        this.status = 'done';
       }
     }
   }

@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   #images-holder {
     flex: 0 1 65%;
   }
